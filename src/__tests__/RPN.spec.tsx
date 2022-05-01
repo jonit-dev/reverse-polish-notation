@@ -36,4 +36,27 @@ describe("Reverse Polish Notation", () => {
 
     expect(result).toBe(15);
   });
+
+  it("should throw an error if an non-supported operand is found", () => {
+    expect.assertions(1);
+    expect(() => rpn.evaluate("3 4 + 2 * 1 ?")).toThrow(
+      "Invalid operator used: '?'"
+    );
+  });
+
+  it("should throw an error if an evaluation don't have 2 elements", () => {
+    expect(() => rpn.evaluate("3 +")).toThrow(
+      "Invalid expression. Missing operands for operator: +"
+    );
+  });
+
+  it("should throw an error on empty expressions", () => {
+    expect(() => rpn.evaluate("")).toThrow("Empty expression.");
+  });
+
+  it("should throw an invalid expression error, if its invalid", () => {
+    expect(() => {
+      rpn.evaluate("3 4 + *");
+    }).toThrow("Invalid expression.");
+  });
 });
